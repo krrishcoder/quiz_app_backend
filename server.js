@@ -214,6 +214,10 @@ app.use(saveResultRoute); // Adjust the path as necessary
 const QuizResponse = require('./models/QuizResponse'); // Adjust the path as necessary
 
 
+// leaderboard route
+const leaderboardRoute = require('./routes/leaderboard'); // Adjust the path as necessary
+app.use(leaderboardRoute); // Use the leaderboard route
+
 
 //======================================================
 app.get('/', async (req, res) => {  
