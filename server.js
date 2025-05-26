@@ -3,9 +3,13 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const User = require('./models/User');
+const QuizResult = require('./models/QuizResult'); // Adjust the path as necessary
+
 const axios = require('axios');
 const submitRoute = require('./routes/submit');
 const scoreRoutes = require('./routes/results');
+const saveResultRoute = require('./routes/save_result'); // Adjust the path as necessary
+const util = require('util');
 
 dotenv.config();
 
@@ -170,6 +174,7 @@ app.get('/api/ask-ai', async (req, res) => {
 
 // for login
 app.post("/login", async (req, res) => {
+  console.log("Login request received:"); // Debug log
     const { identifier, password } = req.body;
     try {
       const user = await User.findOne({
@@ -200,15 +205,22 @@ app.use(submitRoute);
 // SCORES
 app.use(scoreRoutes);
 
+// Save Quiz Responses
+app.use(saveResultRoute); // Adjust the path as necessary
 
 
 
-// Hello World Route
-app.get('/', (req, res) => {
-    res.send('Hello World');
-  });
+//======================================================  
+const QuizResponse = require('./models/QuizResponse'); // Adjust the path as necessary
 
 
+
+//======================================================
+app.get('/', async (req, res) => {  
+
+  res.send({"message": "Welcome to the Quiz API!"});
+
+})
 
 //-----------------------------------------------------------------
 const PORT = process.env.PORT || 3000;
